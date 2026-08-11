@@ -36,8 +36,8 @@
     <s:if test="actionName == 'createUser'">
         <s:text name="userAdmin.addInstructions"/>
     </s:if>
-    <s:if test="authMethod == 'DB_OPENID'">
-         <s:text name="userAdmin.noPasswordForOpenID"/>
+    <s:if test="authMethod == 'DB_OIDC'">
+         <s:text name="userAdmin.noPasswordForOidc"/>
     </s:if>
 </p>
 
@@ -68,14 +68,14 @@
                  label="%{getText('userSettings.fullname')}"
                  tooltip="%{getText('userAdmin.tip.fullName')}" />
 
-    <s:if test="authMethod == 'ROLLERDB' || authMethod == 'DB_OPENID'">
+    <s:if test="authMethod == 'ROLLERDB' || authMethod == 'DB_OIDC'">
         <s:password name="bean.password" size="30" maxlength="30" onkeyup="formChanged()"
                      label="%{getText('userSettings.password')}"
                      tooltip="%{getText('userAdmin.tip.password')}" />
     </s:if>
 
-    <s:if test="authMethod == 'OPENID' || authMethod == 'DB_OPENID'">
-        <s:textfield name="bean.openIdUrl" size="30" maxlength="255" id="f_openid_identifier"
+    <s:if test="authMethod == 'OIDC' || authMethod == 'DB_OIDC'">
+        <s:textfield name="bean.openIdUrl" size="30" maxlength="255"
                      label="%{getText('userSettings.openIdUrl')}"
                      tooltip="%{getText('userAdmin.tip.openIdUrl')}" />
     </s:if>
@@ -150,19 +150,21 @@
     <br />
     <br />
 
-    <div class="control">
-        <s:if test="actionName == 'createUser'">
-            <s:submit cssClass="btn btn-default" id="save_button"
-                      value="%{getText('generic.save')}" action="createUser!save"/>
-            <s:submit cssClass="btn"
-                      value="%{getText('generic.cancel')}" action="createUser!cancel" />
-        </s:if>
-        <s:else>
-            <s:submit cssClass="btn btn-default" id="save_button"
-                      value="%{getText('generic.save')}" action="modifyUser!save"/>
-            <s:submit cssClass="btn"
-                      value="%{getText('generic.cancel')}" action="modifyUser!cancel" />
-        </s:else>
+    <div class="row mb-3">
+        <div class="col-sm-9 offset-sm-3">
+            <s:if test="actionName == 'createUser'">
+                <s:submit theme="simple" cssClass="btn btn-primary" id="save_button"
+                          value="%{getText('generic.save')}" action="createUser!save"/>
+                <s:submit theme="simple" cssClass="btn btn-outline-secondary"
+                          value="%{getText('generic.cancel')}" action="createUser!cancel" />
+            </s:if>
+            <s:else>
+                <s:submit theme="simple" cssClass="btn btn-primary" id="save_button"
+                          value="%{getText('generic.save')}" action="modifyUser!save"/>
+                <s:submit theme="simple" cssClass="btn btn-outline-secondary"
+                          value="%{getText('generic.cancel')}" action="modifyUser!cancel" />
+            </s:else>
+        </div>
     </div>
 
 </s:form>
