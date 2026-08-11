@@ -1,4 +1,4 @@
 .git
 docker/postgresql-data
 docker/roller-data
-it-selenium
+it-playwright
